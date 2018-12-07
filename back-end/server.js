@@ -47,4 +47,17 @@ app.post('/', (req, res) => {
     else
         res.status(404).json({'message': 'error'})
 })
+app.put('/', (req,res)=> {
+    console.log(req.body)
+    client_debt.findById(req.body.id, function (err, custy) {
+        if (err) return handleError(err);
+      
+        custy.name = req.body.name;
+        custy.amount_owed = req.body.debt
+        custy.save(function (err, custy) {
+          if (err) return handleError(err)
+          res.status(200);
+        });
+      });
+})
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
