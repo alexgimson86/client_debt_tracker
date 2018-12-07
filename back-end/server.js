@@ -39,8 +39,10 @@ app.post('/', (req, res) => {
         var person = {name: name, debt: debt}
         exports.person = person
         var newDoc = new client_debt({name: name, amount_owed: debt})
-        newDoc.save()
-        res.status(200).send()
+        newDoc.save(function(err,doc){
+
+            res.status(200).send(doc)
+        })
     }
     else
         res.status(404).json({'message': 'error'})

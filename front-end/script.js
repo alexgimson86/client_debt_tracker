@@ -9,7 +9,7 @@ $(document).ready(function(){
         .done(function(data){
             if(data){
                 data.docs.forEach(function(customer){
-                    $('table').append('<tr><td>' + customer.name + '</td>' + '<td>' + customer.amount_owed + '</td></tr>') ;
+                    $('tbody').append('<tr><td>' + customer.name + '</td><td>' + customer.amount_owed + '</td></tr>') ;
                 })
             }
         })
@@ -30,7 +30,7 @@ $(document).ready(function(){
             .done(function(data){
                 if(data){
                     data.docs.forEach(function(doc){
-                        $('table').append('<tr><td>' + customer + '</td>' + '<td>' + debt + '</td></tr>') ;
+                        $('tbody').append('<tr><td class="list-group-item">' + customer + '</td><td class="list-group-item">' + debt + '</td></tr>') ;
                     })
                 }
             })
