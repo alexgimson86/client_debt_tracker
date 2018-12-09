@@ -60,4 +60,15 @@ app.put('/', (req,res)=> {
         });
       });
 })
+app.delete('/', (req,res)=>{
+    client_debt.deleteOne({_id:req.body.id },function(err){
+        if(err){
+            return err;
+        }
+        client_debt.find(function(err,docs){
+            if(err) return err;
+            res.status(200);
+        })
+    })
+})
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

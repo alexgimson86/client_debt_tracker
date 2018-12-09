@@ -14,7 +14,7 @@ $(document).ready(function(){
                     $('tbody').append(`<tr><td contenteditable="true" value="${customer.name}"> ${customer.name} </td><td contenteditable="true" value="${customer.amount_owed}"> ${customer.amount_owed}</td><td><button class="btn btn-warning" id="${customer._id}_edit" type="button">edit</button></td><td><button class="btn btn-danger" type="button" id="${customer._id}_delete" type="button" >delete</button></tr>`) 
                 })*/
                 data.docs.forEach(function(customer){
-                    $('tbody').append(`<tr><td contenteditable="true" id="${customer._id}_name" value="${customer.name}"> ${customer.name} </td><td contenteditable="true" id="${customer._id}_debt"> ${customer.amount_owed}</td><td><button class="btn btn-warning" id="${customer._id}_edit" type="button">edit</button><button class="btn btn-danger" type="button" id="${customer._id}_delete" type="button" >delete</button></td></tr>`) 
+                    $('tbody').append(`<tr id="${customer._id}_row"><td contenteditable="true" id="${customer._id}_name" value="${customer.name}"> ${customer.name} </td><td contenteditable="true" id="${customer._id}_debt"> ${customer.amount_owed}</td><td><button class="btn btn-warning" id="${customer._id}_edit" type="button">edit</button><button class="btn btn-danger" type="button" id="${customer._id}_delete" type="button" >delete</button></td></tr>`) 
                 })
             }
         })
@@ -46,11 +46,6 @@ $(document).ready(function(){
         }
     })
     //edit function
-   /* $('td .btn-warning').click(function(){
-        console.log("hello")
-        console.log($(this).attr('id'))
-
-    })*/
     $('tbody').on('click', '.btn-warning', function(){
         var id = $(this).attr('id')
         var trimmedId  = id.substring(0,id.length - 5)
@@ -65,5 +60,20 @@ $(document).ready(function(){
             data: {id: trimmedId, name: name, debt: debt},
             dataType: JSON
         })
+    });
+    $('tbody').on('click', '.btn-danger', function(){
+        var id = $(this).attr('id')
+        var trimmedId  = id.substring(0,id.length - 7)
+        $.ajax({
+            url: link,
+            type: "DELETE",
+            data: {id: trimmedId},
+            dataType: JSON
+        })
+        var rowId = `${trimmedId}_row`
+       $(`#${rowId}`).remove();
+       
+    })
 });
-});
+    
+    
